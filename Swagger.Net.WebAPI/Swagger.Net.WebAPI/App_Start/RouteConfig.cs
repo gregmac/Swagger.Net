@@ -15,6 +15,12 @@ namespace Swagger.Net.WebAPI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapHttpRoute(
+                name: "SwaggerApi",
+                routeTemplate: "api/docs/{controller}",
+                defaults: new { swagger = true }
+            );
+
+            routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }

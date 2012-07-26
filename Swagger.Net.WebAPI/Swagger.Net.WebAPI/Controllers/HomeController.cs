@@ -10,6 +10,7 @@ namespace Swagger.Net.WebAPI.Controllers
     {
         public ActionResult Index()
         {
+            //return Redirect("/docs");
             return View();
         }
     }

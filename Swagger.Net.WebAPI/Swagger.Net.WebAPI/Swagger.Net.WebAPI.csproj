@@ -31,6 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>App_Data\Docs.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -160,6 +161,22 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="docs\css\screen.css" />
+    <Content Include="docs\images\pet_store_api.png" />
+    <Content Include="docs\images\wordnik_api.png" />
+    <Content Include="docs\index.html" />
+    <Content Include="docs\lib\backbone-min.js" />
+    <Content Include="docs\lib\handlebars.runtime-1.0.0.beta.6.js" />
+    <Content Include="docs\lib\jquery.ba-bbq.min.js" />
+    <Content Include="docs\lib\jquery.min.js" />
+    <Content Include="docs\lib\jquery.slideto.min.js" />
+    <Content Include="docs\lib\jquery.wiggle.min.js" />
+    <Content Include="docs\lib\swagger.js" />
+    <Content Include="docs\lib\underscore-min.js" />
+    <Content Include="docs\swagger-ui.js" />
+    <Content Include="docs\swagger-ui.min.js">
+      <DependentUpon>swagger-ui.js</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
@@ -227,6 +244,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Swagger.Net\Swagger.Net.csproj">
+      <Project>{23f318e4-d42f-484e-9c5a-41b652145cf0}</Project>
+      <Name>Swagger.Net</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
