@@ -3,7 +3,7 @@ Swagger.Net
 
 Library to document the ASP.NET Web API using the Swagger specification
 
-Latest version: 0.5
+Latest version: Pre-release 0.5
 
 Introduction
 ------------
@@ -12,16 +12,16 @@ Swagger.Net will expose any apis the inherit from the ApiController in the new [
 
 Swagger UI is included.  If you roll your own somewhere, just point your instance of [Swagger UI](https://github.com/wordnik/swagger-ui) at http://YOUR_URL/api/swagger to expose all of the APIs that you have built.  
 
-Swagger.Net uses a combination of the Web API [ApiExplorer](http://msdn.microsoft.com/en-us/library/system.web.http.description.apiexplorer(v=vs.108).aspx) class and XML Documentation you write in your /// blocks.
+Swagger.Net uses a combination of the Web API [ApiExplorer](http://msdn.microsoft.com/en-us/library/system.web.http.description.apiexplorer.aspx) class and XML Documentation you write in your /// blocks.
 
-One article that helped me tremendously: [Generating a Web API using ApiExplorer] (http://blogs.msdn.com/b/yaohuang1/archive/2012/05/21/asp-net-web-api-generating-a-web-api-help-page-using-apiexplorer.aspx).
+One article that helped me tremendously: [Generating a Web API help page using ApiExplorer] (http://blogs.msdn.com/b/yaohuang1/archive/2012/05/21/asp-net-web-api-generating-a-web-api-help-page-using-apiexplorer.aspx).
 
 Swagger.NET conforms to the [Swagger specification](http://swagger.wordnik.com/spec) to support all swagger components including client code gen.
 
 Requirements
 ------------
 
-+ ASP.NET MVC 4.0
++ [ASP.NET MVC 4.0](http://www.asp.net/mvc/mvc4)
 + .NET 4.0 or 4.5
 
 Setup
@@ -78,7 +78,8 @@ Known Issues
 
 I'm hoping you will help me find these.
 
-+ The version of Swagger UI I have built in the /docs folder DOES NOT WORK in Internet Exlorer.  :-(
++ The version of Swagger UI I have built in the /docs folder DOES NOT WORK in Internet Explorer.  :-(
++ Models according to the swagger spec are not yet supported
 
 
 Other Thoughts
@@ -91,7 +92,7 @@ I have built this library with the lastest/prerelease versions of everything .NE
 Improvements
 -----------------
 
-Create a fork of [Swagger.Net](https://github.com/miketrionfo/Swagger.Net)
+Create a fork of [Swagger.Net](https://github.com/miketrionfo/Swagger.Net/fork)
 
 Did you change it? [Submit a pull request](https://github.com/miketrionfo/Swagger.Net/pull/new/master).
 
