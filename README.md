@@ -41,7 +41,6 @@ Configuration
 
 3. Add the following method to `Global.asax.cs`:
 
-
         private void Configure_Swagger()
         {
             var config = GlobalConfiguration.Configuration;
@@ -56,16 +55,17 @@ Configuration
 4. Call the `Configure_Swagger()` from `Application_Start()`
 5. Optional: If you wish to see the JSON easily from the browser and you don't care about xml Accept headers, then add the following to your `Configure_Swagger()`:
 
-    var xmlFormatter = config.Formatters
-        .Where(f =>
-        {
-            return f.SupportedMediaTypes.Any(v => v.MediaType == "text/xml");
-        }).FirstOrDefault();
-        
-    if (xmlFormatter != null)
-    {
-        config.Formatters.Remove(xmlFormatter);
-    }
+            var xmlFormatter = config.Formatters
+              .Where(f =>
+              {
+                  return f.SupportedMediaTypes.Any(v => v.MediaType == "text/xml");
+              })
+              .FirstOrDefault();
+
+            if (xmlFormatter != null)
+            {
+                config.Formatters.Remove(xmlFormatter);
+            }
 
 Dependencies
 ------------
