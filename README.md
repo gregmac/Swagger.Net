@@ -56,8 +56,6 @@ Configuration
 4. Call the `Configure_Swagger()` from `Application_Start()`
 5. Optional: If you wish to see the JSON easily from the browser and you don't care about xml Accept headers, then add the following to your `Configure_Swagger()`:
 
-    // The Web API Configuration Object
-    // Remove the XML Formatter
     var xmlFormatter = config.Formatters
         .Where(f =>
         {
@@ -68,8 +66,6 @@ Configuration
     {
         config.Formatters.Remove(xmlFormatter);
     }
-    
-
 
 Dependencies
 ------------
