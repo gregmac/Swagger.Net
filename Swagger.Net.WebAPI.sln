@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swagger.Net.WebAPI", "Swagger.Net.WebAPI\Swagger.Net.WebAPI\Swagger.Net.WebAPI.csproj", "{FBD38342-07C3-4653-BF3E-6E0830DA5971}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swagger.Net", "Swagger.Net\Swagger.Net.csproj", "{23F318E4-D42F-484E-9C5A-41B652145CF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23F318E4-D42F-484E-9C5A-41B652145CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23F318E4-D42F-484E-9C5A-41B652145CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23F318E4-D42F-484E-9C5A-41B652145CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23F318E4-D42F-484E-9C5A-41B652145CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBD38342-07C3-4653-BF3E-6E0830DA5971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD38342-07C3-4653-BF3E-6E0830DA5971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD38342-07C3-4653-BF3E-6E0830DA5971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD38342-07C3-4653-BF3E-6E0830DA5971}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
