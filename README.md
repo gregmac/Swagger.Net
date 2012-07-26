@@ -32,15 +32,15 @@ Configuration
 -------------
 1. Enable "XML Documentation File" and specify a value (i.e. App_Data\Docs.XML) in the Web API's properties | Build menu (Alt+Enter). You will use this in step 3. Do not put a ~ in the value path (see step 3).
 2. Add the following route to your route config (I added it first):
-   `
+
             routes.MapHttpRoute(
                 name: "SwaggerApi",
                 routeTemplate: "api/docs/{controller}",
                 defaults: new { swagger = true }
             );
-   `
-3. Add the following method to Global.asax.cs:
-   `
+
+3. Add the following method to `Global.asax.cs`:
+
 
         private void Configure_Swagger()
         {
@@ -52,26 +52,24 @@ Configuration
             config.Services.Add(typeof(IAssembliesResolver),
                 new SwaggerResolver());
         }
-   `
+
 4. Call the `Configure_Swagger()` from `Application_Start()`
 5. Optional: If you wish to see the JSON easily from the browser and you don't care about xml Accept headers, then add the following to your `Configure_Swagger()`:
-   `
-            // The Web API Configuration Object
-            // Remove the XML Formatter
-            var xmlFormatter = config.Formatters
-              .Where(f =>
-              {
-                  return f.SupportedMediaTypes.Any(v => v.MediaType == "text/xml");
-              })
-              .FirstOrDefault();
 
-            if (xmlFormatter != null)
-            {
-                config.Formatters.Remove(xmlFormatter);
-            }
+    // The Web API Configuration Object
+    // Remove the XML Formatter
+    var xmlFormatter = config.Formatters
+        .Where(f =>
+        {
+            return f.SupportedMediaTypes.Any(v => v.MediaType == "text/xml");
+        }).FirstOrDefault();
+        
+    if (xmlFormatter != null)
+    {
+        config.Formatters.Remove(xmlFormatter);
+    }
+    
 
-   `
-   
 
 Dependencies
 ------------
