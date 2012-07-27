@@ -4,12 +4,18 @@ using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using Newtonsoft.Json.Linq;
 
 namespace Swagger.Net
 {
+    /// <summary>
+    /// Determines if any request hit the Swagger route. Moves on if not, otherwise responds with JSON Swagger spec doc
+    /// </summary>
     public class SwaggerActionFilter : ActionFilterAttribute
     {
+        /// <summary>
+        /// Executes each request to give either a JSON Swagger spec doc or passes through the request
+        /// </summary>
+        /// <param name="actionContext">Context of the action</param>
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
             var docRequest = actionContext.ControllerContext.RouteData.Values.ContainsKey(SwaggerGen.SWAGGER);

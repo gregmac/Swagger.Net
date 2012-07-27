@@ -8,6 +8,9 @@ using System.Web.Http.Dispatcher;
 
 namespace Swagger.Net
 {
+    /// <summary>
+    /// Allows the calling Web API project to resolve the SwaggerController which is the entry point for the Swagger spec
+    /// </summary>
     public class SwaggerResolver : IAssembliesResolver
     {
         public ICollection<Assembly> GetAssemblies()

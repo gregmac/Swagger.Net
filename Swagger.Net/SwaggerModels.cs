@@ -18,11 +18,23 @@ namespace Swagger.Net
         public const string PATH = "path";
         public const string BODY = "body";
 
+        /// <summary>
+        /// Create a resource listing
+        /// </summary>
+        /// <param name="actionContext">Current action context</param>
+        /// <param name="includeResourcePath">Should the resource path property be included in the response</param>
+        /// <returns>A resource Listing</returns>
         public static ResourceListing CreateResourceListing(HttpActionContext actionContext, bool includeResourcePath = true)
         {
             return CreateResourceListing(actionContext.ControllerContext, includeResourcePath);
         }
 
+        /// <summary>
+        /// Create a resource listing
+        /// </summary>
+        /// <param name="actionContext">Current controller context</param>
+        /// <param name="includeResourcePath">Should the resource path property be included in the response</param>
+        /// <returns>A resrouce listing</returns>
         public static ResourceListing CreateResourceListing(HttpControllerContext controllerContext, bool includeResourcePath = false)
         {
             Uri uri = controllerContext.Request.RequestUri;
@@ -39,6 +51,11 @@ namespace Swagger.Net
             return rl;
         }
 
+        /// <summary>
+        /// Create an api element 
+        /// </summary>
+        /// <param name="api">Description of the api via the ApiExplorer</param>
+        /// <returns>A resource api</returns>
         public static ResourceApi CreateResourceApi(ApiDescription api)
         {
             ResourceApi rApi = new ResourceApi()
@@ -51,6 +68,12 @@ namespace Swagger.Net
             return rApi;
         }
 
+        /// <summary>
+        /// Creates an api operation
+        /// </summary>
+        /// <param name="api">Description of the api via the ApiExplorer</param>
+        /// <param name="docProvider">Access to the XML docs written in code</param>
+        /// <returns>An api operation</returns>
         public static ResourceApiOperation CreateResourceApiOperation(ApiDescription api, XmlCommentDocumentationProvider docProvider)
         {
             ResourceApiOperation rApiOperation = new ResourceApiOperation()
@@ -66,6 +89,13 @@ namespace Swagger.Net
             return rApiOperation;
         }
 
+        /// <summary>
+        /// Creates an operation parameter
+        /// </summary>
+        /// <param name="api">Description of the api via the ApiExplorer</param>
+        /// <param name="param">Description of a parameter on an operation via the ApiExplorer</param>
+        /// <param name="docProvider">Access to the XML docs written in code</param>
+        /// <returns>An operation parameter</returns>
         public static ResourceApiOperationParameter CreateResourceApiOperationParameter(ApiDescription api, ApiParameterDescription param, XmlCommentDocumentationProvider docProvider)
         {
             string paramType = (param.Source.ToString().Equals(FROMURI)) ? QUERY : BODY;

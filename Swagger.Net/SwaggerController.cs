@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
-using Newtonsoft.Json.Linq;
 
 namespace Swagger.Net
 {
@@ -12,7 +11,7 @@ namespace Swagger.Net
         /// <summary>
         /// Get the resource description of the api for swagger documentation
         /// </summary>
-        /// <remarks>It is very convenient to have this information available for generating clients
+        /// <remarks>It is very convenient to have this information available for generating clients. This is the entry point for the swagger UI
         /// </remarks>
         /// <returns>JSON document representing structure of API</returns>
         public ResourceListing Get()
