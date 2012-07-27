@@ -22,7 +22,7 @@ Requirements
 ------------
 
 + [ASP.NET MVC 4.0](http://www.asp.net/mvc/mvc4)
-+ .NET 4.0 or 4.5
++ .NET 4.5
 
 Setup
 -----
