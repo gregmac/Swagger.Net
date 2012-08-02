@@ -69,10 +69,6 @@ Configuration
                 config.Formatters.Remove(xmlFormatter);
             }
 
-Dependencies
-------------
-+ [Newtonsoft JSON](http://james.newtonking.com/projects/json-net.aspx) library (Will be shipping with the MVC 4 project templates)
-
 Known Issues
 ------------
 
