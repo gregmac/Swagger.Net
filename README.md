@@ -28,7 +28,7 @@ Setup
 -----
 
 1. Clone the branch labled for the version you wish, build and reference.
-2. [Nuget Package](https://github.com/miketrionfo/Swagger.Net): Search for Swagger.Net
+2. [Nuget Package](https://nuget.org/packages/Swagger.Net): Search for Swagger.Net
 
 Configuration
 -------------
