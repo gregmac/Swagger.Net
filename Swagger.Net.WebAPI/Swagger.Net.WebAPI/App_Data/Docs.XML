@@ -4,5 +4,17 @@
         <name>Swagger.Net.WebAPI</name>
     </assembly>
     <members>
+        <member name="M:Swagger.Net.WebAPI.Controllers.HomeController.Index">
+            <summary>
+            This is my index doc
+            </summary>
+            <returns>A view</returns>
+        </member>
+        <member name="M:Swagger.Net.WebAPI.Controllers.ValuesController.Get">
+            <summary>
+            Get all strings
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

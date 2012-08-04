@@ -8,6 +8,10 @@ namespace Swagger.Net.WebAPI.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// This is my index doc
+        /// </summary>
+        /// <returns>A view</returns>
         public ActionResult Index()
         {
             //return Redirect("/docs");

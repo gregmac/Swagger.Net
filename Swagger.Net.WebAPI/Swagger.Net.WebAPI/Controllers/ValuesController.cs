@@ -9,7 +9,10 @@ namespace Swagger.Net.WebAPI.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values
+        /// <summary>
+        /// Get all strings
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
