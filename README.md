@@ -24,6 +24,11 @@ Requirements
 + [ASP.NET MVC 4.0](http://www.asp.net/mvc/mvc4)
 + .NET 4.5
 
+Upgrading from v0.5.1
+---------------------
+
+You will need to remove all Swagger.Net related code from `Global.asax.cs` and also from `App_Start\RouteConfig.cs`. If you also had a docs xml file in `App_Data`, please remove and/or refer to step 1 of the configuration below.
+
 Setup
 -----
 
