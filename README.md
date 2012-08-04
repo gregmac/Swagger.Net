@@ -10,7 +10,7 @@ Introduction
 
 Swagger.Net will expose any apis the inherit from the ApiController in the new [ASP.NET Web API](http://www.asp.net/web-api).
 
-Swagger UI is included.  If you roll your own somewhere, just point your instance of [Swagger UI](https://github.com/wordnik/swagger-ui) at http://YOUR_URL/api/swagger to expose all of the APIs that you have built.  
+Swagger UI is included in the solution.  However, when using the NuGet package you will need to roll your own somewhere and just point your instance of [Swagger UI](https://github.com/wordnik/swagger-ui) at http://YOUR_URL/api/swagger to expose all of the APIs that you have built.  
 
 Swagger.Net uses a combination of the Web API [ApiExplorer](http://msdn.microsoft.com/en-us/library/system.web.http.description.apiexplorer.aspx) class and XML Documentation you write in your /// blocks.
 
