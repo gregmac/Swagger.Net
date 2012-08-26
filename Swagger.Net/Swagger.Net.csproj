@@ -57,7 +57,6 @@
     <Compile Include="SwaggerModels.cs" />
     <Compile Include="SwaggerActionFilter.cs" />
     <Compile Include="SwaggerController.cs" />
-    <Compile Include="SwaggerResolver.cs" />
     <Compile Include="XmlCommentDocumentationProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
