@@ -45,7 +45,6 @@ namespace Swagger.Net
             {
                 string apiControllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
                 if (api.Route.Defaults.ContainsKey(SwaggerGen.SWAGGER) ||
-                    !apiControllerName.Equals(actionContext.ControllerContext.ControllerDescriptor.ControllerName) || 
                     apiControllerName.ToUpper().Equals(SwaggerGen.SWAGGER.ToUpper())) continue;
 
                 ResourceApi rApi = SwaggerGen.CreateResourceApi(api);
