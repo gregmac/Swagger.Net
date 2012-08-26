@@ -32,7 +32,7 @@ Upgrading from v0.5.1 & v0.5.2
 Setup
 -----
 
-Install the [Nuget Package](https://nuget.org/packages/Swagger.Net): Search for Swagger.Net in the package manager or Install-Package Swagger.Net
+Install the [Swagger.Net NuGet package](https://nuget.org/packages/Swagger.Net) or the [Swagger UI for .NET NuGet package](https://nuget.org/packages/Swagger.Net.UI). Search for "Swagger" in the package manager or Install-Package Swagger.Net & Install-Package Swagger.Net.UI
 
 Configuration
 -------------
