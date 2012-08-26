@@ -37,8 +37,6 @@ namespace Swagger.Net.WebAPI
             config.Filters.Add(new SwaggerActionFilter());
             config.Services.Replace(typeof(IDocumentationProvider),
                 new XmlCommentDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/Docs.XML")));
-            config.Services.Add(typeof(IAssembliesResolver),
-                new SwaggerResolver());
 
             // The Web API Configuration Object
             // Remove the XML Formatter
