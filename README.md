@@ -3,7 +3,7 @@ Swagger.Net
 
 Library to document the ASP.NET Web API using the Swagger specification
 
-Latest version: Pre-release 0.5.2
+Latest version: Pre-release 0.5.4
 
 Introduction
 ------------
@@ -38,21 +38,7 @@ Configuration
 -------------
 1. Enable "XML documentation file" and accept the default value, or specify a custom value (i.e. App_Data\Docs.XML), in the Web API's properties | Build menu (Alt+Enter). If you specify a custom value, you will need to edit the App_Start\SwaggerNet.cs file.
 
-2. Optional: If you wish to see the JSON easily from the browser and you don't care about xml Accept headers, then add the following to your `Application_Start()`:
-
-            var xmlFormatter = config.Formatters
-              .Where(f =>
-              {
-                  return f.SupportedMediaTypes.Any(v => v.MediaType == "text/xml");
-              })
-              .FirstOrDefault();
-
-            if (xmlFormatter != null)
-            {
-                config.Formatters.Remove(xmlFormatter);
-            }
-
-3. Point your browswer at /api/swagger to see the api listing for the Swagger spec.
+2. Point your browswer at /api/swagger to see the api listing for the Swagger spec or point your instance of [Swagger UI](https://github.com/wordnik/swagger-ui) (not included) at http://YOUR_URL/api/swagger to expose all of the APIs that you have built.  
 
 Known Issues
 ------------
@@ -86,6 +72,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 Change Log
 ----------
+
+0.5.4 Forced the swagger controller to return JSON and removed optional global asax step.
 
 0.5.3 Updated to support the RTM of WebAPI.
 

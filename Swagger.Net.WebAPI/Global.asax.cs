@@ -22,26 +22,6 @@ namespace Swagger.Net.WebApi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Configure_Swagger();
-        }
-
-        private void Configure_Swagger()
-        {
-            var config = GlobalConfiguration.Configuration;
-
-            // The Web API Configuration Object
-            // Remove the XML Formatter
-            var xmlFormatter = config.Formatters
-              .Where(f =>
-              {
-                  return f.SupportedMediaTypes.Any(v => v.MediaType == "text/xml");
-              })
-              .FirstOrDefault();
-
-            if (xmlFormatter != null)
-            {
-                config.Formatters.Remove(xmlFormatter);
-            }
         }
     }
 }

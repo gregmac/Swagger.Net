@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
@@ -14,7 +15,7 @@ namespace Swagger.Net
         /// <remarks>It is very convenient to have this information available for generating clients. This is the entry point for the swagger UI
         /// </remarks>
         /// <returns>JSON document representing structure of API</returns>
-        public ResourceListing Get()
+        public HttpResponseMessage Get()
         {
             var docProvider = (XmlCommentDocumentationProvider)GlobalConfiguration.Configuration.Services.GetDocumentationProvider();
 
@@ -32,8 +33,12 @@ namespace Swagger.Net
                 ResourceApi rApi = SwaggerGen.CreateResourceApi(api);
                 r.apis.Add(rApi);
             }
+
+            HttpResponseMessage resp = new HttpResponseMessage();
+
+            resp.Content = new ObjectContent<ResourceListing>(r, ControllerContext.Configuration.Formatters.JsonFormatter);            
             
-            return r;
+            return resp;
         }
     }
 }
