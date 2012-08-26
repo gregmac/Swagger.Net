@@ -38,7 +38,7 @@ Install the [Swagger.Net NuGet package](https://nuget.org/packages/Swagger.Net) 
 
 Configuration
 -------------
-1. Enable "XML documentation file" and accept the default value, or specify a custom value (i.e. App_Data\Docs.XML), in the Web API's properties | Build menu (Alt+Enter). If you specify a custom value, you will need to edit the App_Start\SwaggerNet.cs file.
+1. Enable "XML documentation file" and accept the default value, or specify a custom value (i.e. App_Data\Docs.XML), in the Web API's properties | Build menu (Alt+Enter). If you specify a custom value, you will need to edit the App_Start\SwaggerNet.cs file. If you have Swagger UI for .NET, point at /swagger.
 
 2. Point your browswer at /api/swagger to see the api listing for the Swagger spec or point your instance of [Swagger UI](https://github.com/wordnik/swagger-ui) (not included, see step 1) at http://YOUR-URL:PORT/api/swagger to expose all of the APIs that you have built.  
 
