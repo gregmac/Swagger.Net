@@ -137,6 +137,7 @@
     <Content Include="docs\css\screen.css" />
     <Content Include="docs\images\pet_store_api.png" />
     <Content Include="docs\images\wordnik_api.png" />
+    <Content Include="docs\index - Copy.html" />
     <Content Include="docs\index.html" />
     <Content Include="docs\lib\backbone-min.js" />
     <Content Include="docs\lib\handlebars.runtime-1.0.0.beta.6.js" />

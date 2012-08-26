@@ -10,11 +10,13 @@ Introduction
 
 Swagger.Net will expose any apis the inherit from the ApiController in the new [ASP.NET Web API](http://www.asp.net/web-api).
 
-Swagger UI is included in the solution.  However, when using the NuGet package you will need to roll your own somewhere and just point your instance of [Swagger UI](https://github.com/wordnik/swagger-ui) at http://YOUR_URL/api/swagger to expose all of the APIs that you have built.  
+Swagger UI is included in the solution.  However, when using the NuGet package you will need to roll your own somewhere and just point your instance of [Swagger UI](https://github.com/wordnik/swagger-ui) at http://YOUR-URL:PORT/api/swagger to expose all of the APIs that you have built.  
+
+Optionally, you may get the [Swagger UI for .NET NuGet package](https://nuget.org/packages/Swagger.Net.UI).
 
 Swagger.Net uses a combination of the Web API [ApiExplorer](http://msdn.microsoft.com/en-us/library/system.web.http.description.apiexplorer.aspx) class and XML Documentation you write in your /// blocks.
 
-One article that helped me tremendously: [Generating a Web API help page using ApiExplorer] (http://blogs.msdn.com/b/yaohuang1/archive/2012/05/21/asp-net-web-api-generating-a-web-api-help-page-using-apiexplorer.aspx).
+One article that helped me tremendously: [Generating a Web API help page using ApiExplorer] (http://blogs.msdn.com/b/yaohuang1/archive/2012/05/21/asp-net-web-api-generating-a-web-api-help-page-using-apiexplorer.aspx). Thank you!
 
 Swagger.NET conforms to the [Swagger specification](http://swagger.wordnik.com/spec) to support all swagger components including client code gen.
 
@@ -38,12 +40,12 @@ Configuration
 -------------
 1. Enable "XML documentation file" and accept the default value, or specify a custom value (i.e. App_Data\Docs.XML), in the Web API's properties | Build menu (Alt+Enter). If you specify a custom value, you will need to edit the App_Start\SwaggerNet.cs file.
 
-2. Point your browswer at /api/swagger to see the api listing for the Swagger spec or point your instance of [Swagger UI](https://github.com/wordnik/swagger-ui) (not included) at http://YOUR_URL/api/swagger to expose all of the APIs that you have built.  
+2. Point your browswer at /api/swagger to see the api listing for the Swagger spec or point your instance of [Swagger UI](https://github.com/wordnik/swagger-ui) (not included, see step 1) at http://YOUR-URL:PORT/api/swagger to expose all of the APIs that you have built.  
 
 Known Issues
 ------------
 
-I'm hoping you will help me find these.
+I'm hoping you will help me find and/or fix these.
 
 + The version of Swagger UI I have built in the /docs folder DOES NOT WORK in Internet Explorer.  :-(
 + Models according to the swagger spec are not yet supported
@@ -52,12 +54,12 @@ I'm hoping you will help me find these.
 Other Thoughts
 --------------
 
-I dropped the Swagger UI directly on the root in a folder called docs, then redirected the index action to /docs.  I also edited the index.html file to point it directly at /api/swagger so it can traverse the documentation.  The Swagger UI that I installed I got from the [Swagger UI GitHub Repo](https://github.com/wordnik/swagger-ui/tree/master/dist)
+I dropped the Swagger UI directly on the root in a folder called docs, then redirected the index action to /docs.  I also edited the index.html file to point it directly at /api/swagger so it can traverse the documentation.  The Swagger UI that I installed I got from the [Swagger UI GitHub Repo](https://github.com/wordnik/swagger-ui/downloads)
 
 I have built this library with the lastest versions of everything .NET.  (VS 2012, .NET 4.5, etc.)
 
 Improvements
------------------
+------------
 
 Create a fork of [Swagger.Net](https://github.com/miketrionfo/Swagger.Net/fork).  If you pull down the code, note that the swagger docs are included.
 
