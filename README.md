@@ -24,10 +24,10 @@ Requirements
 + [ASP.NET MVC 4.0](http://www.asp.net/mvc/mvc4)
 + .NET 4.5
 
-Upgrading from v0.5.1
----------------------
+Upgrading from v0.5.1 & v0.5.2
+------------------------------
 
-You will need to remove all Swagger.Net related code from `Global.asax.cs` and also from `App_Start\RouteConfig.cs`. If you also had a docs xml file in `App_Data`, please remove and/or refer to step 1 of the configuration below.
+0.5.1 and 0.5.2 were both built on the RC, as such, no upgrade path is supported.
 
 Setup
 -----
@@ -52,6 +52,8 @@ Configuration
                 config.Formatters.Remove(xmlFormatter);
             }
 
+3. Point your browswer at /api/swagger to see the api listing for the Swagger spec.
+
 Known Issues
 ------------
 
@@ -66,12 +68,12 @@ Other Thoughts
 
 I dropped the Swagger UI directly on the root in a folder called docs, then redirected the index action to /docs.  I also edited the index.html file to point it directly at /api/swagger so it can traverse the documentation.  The Swagger UI that I installed I got from the [Swagger UI GitHub Repo](https://github.com/wordnik/swagger-ui/tree/master/dist)
 
-I have built this library with the lastest/prerelease versions of everything .NET.  (VS 2012 RC, .NET 4.5 RC, etc.)
+I have built this library with the lastest versions of everything .NET.  (VS 2012, .NET 4.5, etc.)
 
 Improvements
 -----------------
 
-Create a fork of [Swagger.Net](https://github.com/miketrionfo/Swagger.Net/fork)
+Create a fork of [Swagger.Net](https://github.com/miketrionfo/Swagger.Net/fork).  If you pull down the code, note that the swagger docs are included.
 
 Did you change it? [Submit a pull request](https://github.com/miketrionfo/Swagger.Net/pull/new/master).
 
@@ -84,6 +86,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 Change Log
 ----------
+
+0.5.3 Updated to support the RTM of WebAPI.
 
 0.5.2 Significantly simplified the configuration by using [WebActivator](https://github.com/davidebbo/WebActivator) in the NuGet package
 
