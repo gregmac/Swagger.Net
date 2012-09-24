@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
@@ -47,12 +48,16 @@ namespace Swagger.Net
                 if (api.Route.Defaults.ContainsKey(SwaggerGen.SWAGGER) ||
                     apiControllerName.ToUpper().Equals(SwaggerGen.SWAGGER.ToUpper())) continue;
 
+                // Make sure we only report the current controller docs
+                if (apiControllerName != actionContext.ControllerContext.ControllerDescriptor.ControllerName)
+                    continue;
+
                 ResourceApi rApi = SwaggerGen.CreateResourceApi(api);
                 r.apis.Add(rApi);
 
                 ResourceApiOperation rApiOperation = SwaggerGen.CreateResourceApiOperation(api, docProvider);
                 rApi.operations.Add(rApiOperation);
-                
+
                 foreach (var param in api.ParameterDescriptions)
                 {
                     ResourceApiOperationParameter parameter = SwaggerGen.CreateResourceApiOperationParameter(api, param, docProvider);
