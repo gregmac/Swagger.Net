@@ -3,7 +3,7 @@ Swagger.Net
 
 Library to document the ASP.NET Web API using the Swagger specification
 
-Latest version: Pre-release 0.5.4
+Latest version: Pre-release 0.5.5
 
 Introduction
 ------------
@@ -24,7 +24,7 @@ Requirements
 ------------
 
 + [ASP.NET MVC 4.0](http://www.asp.net/mvc/mvc4)
-+ .NET 4.5
++ .NET 4.0
 
 Upgrading from v0.5.1 & v0.5.2
 ------------------------------
@@ -56,7 +56,7 @@ Other Thoughts
 
 I dropped the Swagger UI directly on the root in a folder called docs, then redirected the index action to /docs.  I also edited the index.html file to point it directly at /api/swagger so it can traverse the documentation.  The Swagger UI that I installed I got from the [Swagger UI GitHub Repo](https://github.com/wordnik/swagger-ui/downloads)
 
-I have built this library with the lastest versions of everything .NET.  (VS 2012, .NET 4.5, etc.)
+I have built this library with the lastest versions of everything .NET.  (VS 2012, .NET 4.5, etc.) Note: Minimum of .NET 4.0 is required.
 
 Improvements
 ------------
@@ -74,6 +74,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 Change Log
 ----------
+
+0.5.5 Require only .NET 4.0. Fix for duplicate controllers in action filter
 
 0.5.4 Forced the swagger controller to return JSON and removed optional global asax step.
 
