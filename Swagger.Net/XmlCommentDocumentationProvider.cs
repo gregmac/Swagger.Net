@@ -95,7 +95,7 @@ namespace Swagger.Net
                 {
                     StringBuilder sb = new StringBuilder(reflectedActionDescriptor.MethodInfo.ReturnParameter.ParameterType.Name);
                     sb.Append("<");
-                    Type[] types = reflectedActionDescriptor.MethodInfo.ReturnParameter.ParameterType.GenericTypeArguments;
+                    Type[] types = reflectedActionDescriptor.MethodInfo.ReturnParameter.ParameterType.GetGenericArguments();
                     for(int i = 0; i < types.Length; i++)
                     {
                         sb.Append(types[i].Name);
