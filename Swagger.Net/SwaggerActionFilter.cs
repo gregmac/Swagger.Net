@@ -46,10 +46,11 @@ namespace Swagger.Net
             {
                 string apiControllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
                 if (api.Route.Defaults.ContainsKey(SwaggerGen.SWAGGER) ||
-                    apiControllerName.ToUpper().Equals(SwaggerGen.SWAGGER.ToUpper())) continue;
+                    apiControllerName.ToUpper().Equals(SwaggerGen.SWAGGER.ToUpper())) 
+                    continue;
 
                 // Make sure we only report the current controller docs
-                if (apiControllerName != actionContext.ControllerContext.ControllerDescriptor.ControllerName)
+                if (apiControllerName.Equals(actionContext.ControllerContext.ControllerDescriptor.ControllerName))
                     continue;
 
                 ResourceApi rApi = SwaggerGen.CreateResourceApi(api);
