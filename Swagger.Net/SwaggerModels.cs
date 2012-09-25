@@ -38,11 +38,12 @@ namespace Swagger.Net
         public static ResourceListing CreateResourceListing(HttpControllerContext controllerContext, bool includeResourcePath = false)
         {
             Uri uri = controllerContext.Request.RequestUri;
+
             ResourceListing rl = new ResourceListing()
             {
                 apiVersion = Assembly.GetCallingAssembly().GetType().Assembly.GetName().Version.ToString(),
                 swaggerVersion = SWAGGER_VERSION,
-                basePath = uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port,
+                basePath = uri.GetLeftPart(UriPartial.Authority) + HttpRuntime.AppDomainAppVirtualPath.TrimEnd('/'),
                 apis = new List<ResourceApi>()
             };
 
