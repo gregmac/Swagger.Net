@@ -50,7 +50,7 @@ namespace Swagger.Net
                     continue;
 
                 // Make sure we only report the current controller docs
-                if (apiControllerName.Equals(actionContext.ControllerContext.ControllerDescriptor.ControllerName))
+                if (!apiControllerName.Equals(actionContext.ControllerContext.ControllerDescriptor.ControllerName))
                     continue;
 
                 ResourceApi rApi = SwaggerGen.CreateResourceApi(api);
