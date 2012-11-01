@@ -110,18 +110,7 @@ namespace Swagger.Net
 
             return "void";
         }
-
-        public virtual string GetNickname(HttpActionDescriptor actionDescriptor)
-        {
-            ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
-            if (reflectedActionDescriptor != null)
-            {
-                return reflectedActionDescriptor.MethodInfo.Name;
-            }
-
-            return "NicknameNotFound";
-        }
-
+        
         private XPathNavigator GetMemberNode(HttpActionDescriptor actionDescriptor)
         {
             ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;

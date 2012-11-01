@@ -80,7 +80,7 @@ namespace Swagger.Net
             ResourceApiOperation rApiOperation = new ResourceApiOperation()
             {
                 httpMethod = api.HttpMethod.ToString(),
-                nickname = docProvider.GetNickname(api.ActionDescriptor),
+                nickname = GetNickname(api),
                 responseClass = docProvider.GetResponseClass(api.ActionDescriptor),
                 summary = api.Documentation,
                 notes = docProvider.GetNotes(api.ActionDescriptor),
@@ -88,6 +88,11 @@ namespace Swagger.Net
             };
 
             return rApiOperation;
+        }
+
+        private static string GetNickname(ApiDescription api)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(api.ID, "[^a-zA-Z0-9]", "_");
         }
 
         /// <summary>
