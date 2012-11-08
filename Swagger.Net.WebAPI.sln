@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swagger.Net", "Swagger.Net\Swagger.Net.csproj", "{23F318E4-D42F-484E-9C5A-41B652145CF0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E69DB36-9D7F-4F64-A658-F7CAAB3D2CA9}"
@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swagger.Net.WebApi", "Swagger.Net.WebApi\Swagger.Net.WebApi.csproj", "{9598BE25-C0E5-4C40-9926-B11BB757211F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swagger.Net.WebApi.AttributeRouting", "Swagger.Net.WebApi.AttributeRouting\Swagger.Net.WebApi.AttributeRouting.csproj", "{60F153EB-1E1E-4546-B5D9-B7B40C083C87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{9598BE25-C0E5-4C40-9926-B11BB757211F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9598BE25-C0E5-4C40-9926-B11BB757211F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9598BE25-C0E5-4C40-9926-B11BB757211F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60F153EB-1E1E-4546-B5D9-B7B40C083C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60F153EB-1E1E-4546-B5D9-B7B40C083C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60F153EB-1E1E-4546-B5D9-B7B40C083C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60F153EB-1E1E-4546-B5D9-B7B40C083C87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
