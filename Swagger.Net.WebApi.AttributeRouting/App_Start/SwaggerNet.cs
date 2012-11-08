@@ -8,7 +8,6 @@ using System.Web.Routing;
 using Swagger.Net;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(Swagger.Net.WebApi.App_Start.SwaggerNet), "PreStart")]
-[assembly: WebActivator.PostApplicationStartMethod(typeof(Swagger.Net.WebApi.App_Start.SwaggerNet), "PostStart")]
 namespace Swagger.Net.WebApi.App_Start
 {
     public static class SwaggerNet
@@ -16,27 +15,17 @@ namespace Swagger.Net.WebApi.App_Start
         public static void PreStart()
         {
             RouteTable.Routes.MapHttpRoute(
-                name: "SwaggerApi",
-                routeTemplate: "api/docs/{controller}",
-                defaults: new { swagger = true }
+                name: "SwaggerResourceList",
+                routeTemplate: "apidocs/swagger",
+                defaults: new { swagger = true, controller = "Swagger", action = "GetResourceList" }
             );
-        }
+            RouteTable.Routes.MapHttpRoute(
+                name: "SwaggerApiDeclaration",
+                routeTemplate: "apidocs/{controllerName}",
+                defaults: new { swagger = true, controller = "Swagger", action = "GetApiDeclaration" }
+            );
 
-        public static void PostStart()
-        {
-            var config = GlobalConfiguration.Configuration;
-
-            config.Filters.Add(new SwaggerActionFilter());
-
-            try
-            {
-                config.Services.Replace(typeof(IDocumentationProvider),
-                    new XmlCommentDocumentationProvider(HttpContext.Current.Server.MapPath("~/bin/Swagger.Net.WebApi.AttributeRouting.XML")));
-            }
-            catch (FileNotFoundException)
-            {
-                throw new Exception("Please enable \"XML documentation file\" in project properties with default (bin\\Swagger.Net.WebApi.AttributeRouting.XML) value or edit value in App_Start\\SwaggerNet.cs");
-            }
+            SwaggerConfiguration.DefaultConfiguration = SwaggerConfiguration.CreateDefaultConfig(GlobalConfiguration.Configuration);
         }
     }
 }
