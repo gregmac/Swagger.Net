@@ -1,0 +1,92 @@
+<Project ToolsVersion="3.5" DefaultTargets="Clean;Package" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ExtensionTasksPath>.\</ExtensionTasksPath>
+
+        <Configuration Condition="'$(Configuration)'==''">Release</Configuration> <!-- the release configuration to use -->
+
+        <!-- BuildNumber comes from (in order): a paramter BuildNumber, BUILD_NUMBER (TeamCity passes this), and then defaults to 0 -->
+        <BuildNumber Condition="'$(BuildNumber)'==''">$(BUILD_NUMBER)</BuildNumber> 
+        <BuildNumber Condition="'$(BuildNumber)'==''">0</BuildNumber> 
+        
+        <!-- optional parameters:
+        
+        <NugetVersionSuffix>  : allows specifying eg, "-beta" to cause the nuget package to be labelled as "1.0.1.23-beta"
+        
+        -->
+    </PropertyGroup>
+
+    <Import Project="ExtensionPack\MSBuild.ExtensionPack.tasks"/>
+
+
+    <!-- Do a regular build, just compile but don't build installers. -->
+    <Target Name="Rebuild" DependsOnTargets="UpdateAssemblyInfoVersion">
+        <Message Text="Rebuild, configuration = $(Configuration)" />
+        
+        <CallTarget Targets="BuildMainSolution" />
+
+    </Target>
+
+    <!-- removes all binaries and runs clean -->
+    <Target Name="Clean">
+        <ItemGroup>
+            <DeleteFiles Include="Swagger.Net.nuget\lib\**\*.*;..\artifacts\**\*.*" />
+        </ItemGroup>
+        <Delete Files="@(DeleteFiles)" />
+        
+        <MSBuild Projects="../Swagger.Net.sln" Properties="Configuration=$(Configuration)" Targets="Clean"/>
+    </Target>
+
+    <!-- used to actually invoke msbuild on the main .sln file. This does the actual compile -->
+    <Target Name="BuildMainSolution" DependsOnTargets="UpdateAssemblyInfoVersion">
+        <Message Text="##teamcity[progressMessage 'Running main build']" Importance="High" />
+        <MSBuild Projects="../Swagger.Net.sln" Properties="Configuration=$(Configuration)" Targets="Rebuild"/> 
+    </Target>
+    
+    <!-- invoke Nuget to create packages -->
+    <Target Name="Package" DependsOnTargets="Rebuild;GetVersion">
+        <PropertyGroup>
+            <NuGetCmd>..\.nuget\nuget.exe pack -Version "$(Version)$(NugetVersionSuffix)" -OutputDirectory ..\artifacts Swagger.Net.nuget\Swagger.Net.nuspec</NuGetCmd>
+        </PropertyGroup>
+        
+        <ItemGroup>
+            <LibFiles Remove="@(LibFiles)" /> <!-- clean existing items -->
+            <LibFiles Include="..\Swagger.Net\bin\$(Configuration)\Swagger.Net.*" />
+        </ItemGroup>
+        <MakeDir Directories="Swagger.Net.nuget\lib" />
+        <Copy SourceFiles="@(LibFiles)" DestinationFolder="Swagger.Net.nuget\lib\" />
+        
+        
+        <MakeDir Directories="..\artifacts" />
+        
+        <Message text="Executing: $(NuGetCmd)" />
+        <Exec Command="$(NuGetCmd)" />
+    </Target>
+
+    <!-- update assemblyinfo.cs files so the 4th digit is $(BuildNumber) -->
+    <Target Name="UpdateAssemblyInfoVersion">
+        <ItemGroup>
+            <AssemblyFiles Include="..\**\AssemblyInfo.cs" />
+        </ItemGroup>
+        <Message Text="Build number is $(BuildNumber)" />
+
+        <MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" 
+            RegexPattern="(AssemblyVersion|AssemblyFileVersionAttribute|AssemblyFileVersion)\(&quot;([0-9]+\.[0-9]+\.[0-9]+)(\.[0-9]+)?&quot;\)"
+            Replacement="$1(&quot;$2.$(BuildNumber)&quot;)"
+            Files="@(AssemblyFiles)" />
+    </Target>
+
+    <!-- gets the full actual version from the compiled .dll file -->
+    <Target Name="GetVersion" DependsOnTargets="Rebuild">
+        <MSBuild.ExtensionPack.Framework.Assembly TaskAction="GetInfo" 
+            NetAssembly="..\Swagger.Net\bin\$(Configuration)\Swagger.Net.dll">
+            <Output TaskParameter="OutputItems" ItemName="Info"/>
+        </MSBuild.ExtensionPack.Framework.Assembly>
+        <Message Text="Version (from Swagger.Net.dll): %(Info.AssemblyVersion)" />
+    
+        <PropertyGroup>
+            <Version>%(Info.AssemblyVersion)</Version>
+        </PropertyGroup>
+    
+    </Target>
+
+    </Project>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Swagger.Net</id>
+        <version>$version$</version>
+        <title>Swagger.Net</title>
+        <authors>Mike Trionfo</authors>
+        <owners>Mike Trionfo, Greg MacLellan</owners>
+        <licenseUrl>http://apache.org/licenses/LICENSE-2.0</licenseUrl>
+        <projectUrl>https://github.com/miketrionfo/Swagger.Net</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Documents the ASP.NET Web API using the Swagger specification. 
+
+Swagger.Net targets .NET 4.0 and will expose any apis the inherit from the ApiController in the new ASP.NET Web API.
+
+Swagger.NET aims to conform to the Swagger specification to support all swagger components including client code gen.</description>
+        <summary>Documents the ASP.NET Web API using the Swagger specification</summary>
+        <releaseNotes>Require only .NET 4.0. Fix for duplicate controllers in action filter. Also added support for virtual applications and directories.</releaseNotes>
+        <tags>Swagger HelpPage Documentation AspNet WebAPI AspNetWebApi</tags>
+        <dependencies>
+            <dependency id="WebActivator" version="1.5.1" />
+        </dependencies>
+    </metadata>
+</package>

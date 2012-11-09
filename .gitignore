@@ -27,3 +27,5 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 packages/
 !nuget.exe
+artifacts/*.nupkg
+build/*.nuget/lib/*
