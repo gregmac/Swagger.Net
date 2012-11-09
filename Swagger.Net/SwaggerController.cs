@@ -43,31 +43,11 @@ namespace Swagger.Net
             {
                 Content = new ObjectContent<Models.ResourceListing>(resourceListing, ControllerContext.Configuration.Formatters.JsonFormatter)
             };
-
-            //var docProvider = (XmlCommentDocumentationProvider)GlobalConfiguration.Configuration.Services.GetDocumentationProvider();
-
-            //ResourceListing r = SwaggerGen.CreateResourceListing(ControllerContext);
-            //List<string> uniqueControllers = new List<string>();
-
-            //foreach (var api in GlobalConfiguration.Configuration.Services.GetApiExplorer().ApiDescriptions)
-            //{
-            //    string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
-            //    if (uniqueControllers.Contains(controllerName) ||
-            //          controllerName.ToUpper().Equals(SwaggerGen.SWAGGER.ToUpper())) continue;
-
-            //    uniqueControllers.Add(controllerName);
-
-            //    ResourceApi rApi = SwaggerGen.CreateResourceApi(api);
-            //    r.apis.Add(rApi);
-            //}
-
-            //HttpResponseMessage resp = new HttpResponseMessage();
-
-            //resp.Content = new ObjectContent<ResourceListing>(r, ControllerContext.Configuration.Formatters.JsonFormatter);            
-            
-            //return resp;
         }
 
+        /// <summary>
+	/// Get the API Declaration for a particular controller
+	/// </summary>
         public Models.ApiDeclaration GetApiDeclaration(string controllerName)
         {
             var config = SwaggerConfig ?? SwaggerConfiguration.DefaultConfiguration;
