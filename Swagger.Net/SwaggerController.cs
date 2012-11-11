@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Swagger.Net.Factories;
 
 namespace Swagger.Net
 {
@@ -22,23 +23,14 @@ namespace Swagger.Net
         /// <returns>JSON document representing structure of API</returns>
         public HttpResponseMessage GetResourceList()
         {
-            var config = SwaggerConfig ?? SwaggerConfiguration.DefaultConfiguration;
-            var httpContext = new HttpContextWrapper(HttpContext.Current);  // TODO: testable way to pass context
-            
-            var resourceListing = new Models.ResourceListing()
-            {
-                apiVersion = config.ApiVersion,
-                basePath = ResolveServerUrl("~", httpContext),
-                swaggerVersion = config.SwaggerVersion,
-                apis = from d in config.ApiExplorer.ApiDescriptions
-                       where d.ActionDescriptor.ControllerDescriptor.ControllerType != this.GetType()
-                       group d by d.ActionDescriptor.ControllerDescriptor.ControllerName into g
-                       select new Models.ResourceListing.ResourceListingApi()
-                       {
-                           path = "/apidocs/" + g.Key 
-                       }
-            };
+            // Arrange
+            var config = SwaggerConfig ?? SwaggerConfiguration.Instance;
+            var factory = new ResourceListingFactory();
 
+            // Act
+            var resourceListing = factory.Create(config);
+
+            // Answer
             return new HttpResponseMessage()
             {
                 Content = new ObjectContent<Models.ResourceListing>(resourceListing, ControllerContext.Configuration.Formatters.JsonFormatter)
@@ -46,11 +38,11 @@ namespace Swagger.Net
         }
 
         /// <summary>
-	/// Get the API Declaration for a particular controller
-	/// </summary>
-        public Models.ApiDeclaration GetApiDeclaration(string controllerName)
+        /// Get the API Declaration for a particular controller
+        /// </summary>
+        public Models.ApiDeclaration GetApiDeclaration(string id)
         {
-            var config = SwaggerConfig ?? SwaggerConfiguration.DefaultConfiguration;
+            var config = SwaggerConfig ?? SwaggerConfiguration.Instance;
             var httpContext = new HttpContextWrapper(HttpContext.Current);  // TODO: testable way to pass context
 
             return new Models.ApiDeclaration()
@@ -58,8 +50,8 @@ namespace Swagger.Net
                 apiVersion = config.ApiVersion,
                 swaggerVersion = config.SwaggerVersion,
                 basePath = ResolveServerUrl("~", httpContext),
-                apis = from d in config.ApiExplorer.ApiDescriptions
-                       where d.ActionDescriptor.ControllerDescriptor.ControllerName == controllerName
+                apis = from d in config.ApiDescriptions
+                       where d.ActionDescriptor.ControllerDescriptor.ControllerName == id
                        group d by d.RelativePath into paths
                        select new Models.Api()
                        {
@@ -76,8 +68,8 @@ namespace Swagger.Net
         }
 
         private static string ResolveServerUrl(string relativeUrl, HttpContextWrapper httpContext)
-	    {
+        {
             return httpContext.Request.Url.GetLeftPart(UriPartial.Authority) + VirtualPathUtility.ToAbsolute(relativeUrl);
-	    }
+        }
     }
 }
