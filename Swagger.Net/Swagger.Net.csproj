@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Net.Http" />
@@ -53,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\ResourceListingFactory.cs" />
     <Compile Include="Models\Api.cs" />
     <Compile Include="Models\ApiDeclaration.cs" />
     <Compile Include="Models\ApiErrorResponse.cs" />
