@@ -14,18 +14,17 @@ namespace Swagger.Net.WebApi.App_Start
     {
         public static void PreStart()
         {
-            RouteTable.Routes.MapHttpRoute(
-                name: "SwaggerResourceList",
-                routeTemplate: "apidocs/swagger",
-                defaults: new { swagger = true, controller = "Swagger", action = "GetResourceList" }
-            );
-            RouteTable.Routes.MapHttpRoute(
-                name: "SwaggerApiDeclaration",
-                routeTemplate: "apidocs/{controllerName}",
-                defaults: new { swagger = true, controller = "Swagger", action = "GetApiDeclaration" }
-            );
+            //RouteTable.Routes.MapHttpRoute(
+            //    name: "SwaggerResourceList",
+            //    routeTemplate: "api/swagger",
+            //    defaults: new { swagger = true, controller = "Swagger", action = "GetResourceList" }
+            //);
+            //RouteTable.Routes.MapHttpRoute(
+            //    name: "SwaggerApiDeclaration",
+            //    routeTemplate: "apidocs/{controllerName}",
+            //    defaults: new { swagger = true, controller = "Swagger", action = "GetApiDeclaration" }
+            //);
 
-            SwaggerConfiguration.DefaultConfiguration = SwaggerConfiguration.CreateDefaultConfig(GlobalConfiguration.Configuration);
         }
     }
 }

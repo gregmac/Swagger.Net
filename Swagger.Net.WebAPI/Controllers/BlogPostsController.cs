@@ -7,6 +7,12 @@ using System.Web.Http;
 
 namespace Swagger.Net.WebApi.Controllers
 {
+    /// <summary>
+    /// This is blog posts controller summary
+    /// </summary>
+    /// <remarks>
+    /// This is blog posts controller remarks
+    /// </remarks>
     public class BlogPostsController : ApiController
     {
         // GET api/blogposts

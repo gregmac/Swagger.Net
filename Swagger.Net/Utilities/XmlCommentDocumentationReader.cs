@@ -1,111 +1,137 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Xml.XPath;
-using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Web.Http.Controllers;
+using System.Web.Http.Description;
+using System.Xml.XPath;
+using Swagger.Net.Models;
 
-namespace Swagger.Net.Utilities
+namespace Swagger.Net
 {
-    public class XmlCommentDocumentationReader
+    /// <summary>
+    /// Accesses the XML doc blocks written in code to further document the API.
+    /// All credit goes to: <see cref="http://blogs.msdn.com/b/yaohuang1/archive/2012/05/21/asp-net-web-api-generating-a-web-api-help-page-using-apiexplorer.aspx"/>
+    /// </summary>
+    public class XmlCommentDocumentationProvider : IDocumentationProvider
     {
-        XPathNavigator _documentNavigator;
-        private const string _methodExpression = "/doc/members/member[@name='M:{0}']";
-        private static Regex nullableTypeNameRegex = new Regex(@"(.*\.Nullable)" + Regex.Escape("`1[[") + "([^,]*),.*");
+        #region --- fields & ctors ---
 
-        public XmlCommentDocumentationReader(string documentPath)
+        const string METHOD_EXPRESSION = "/doc/members/member[@name='M:{0}']";
+        const string TYPE_EXPRESSION = "/doc/members/member[@name='T:{0}']";
+        const string TYPE_MEMBERS_EXPRESSION = "/doc/members/member[contains(@name,'P:{0}')]";
+
+        readonly XPathNavigator _documentNavigator;
+        static readonly Regex NullableTypeNameRegex = new Regex(@"(.*\.Nullable)" + Regex.Escape("`1[[") + "([^,]*),.*");
+
+
+        public XmlCommentDocumentationProvider(string documentPath)
         {
-            XPathDocument xpath = new XPathDocument(documentPath);
+            var xpath = new XPathDocument(documentPath);
             _documentNavigator = xpath.CreateNavigator();
         }
 
-        public virtual string GetSummary(MethodInfo method)
+        #endregion --- fields & ctors ---
+
+        public virtual string GetDocumentation(HttpParameterDescriptor parameterDescriptor)
         {
-            XPathNavigator memberNode = GetMemberNode(method);
+            var parameterName = parameterDescriptor.ParameterName;
+            var memberNode = GetMemberNode(parameterDescriptor.ActionDescriptor);
             if (memberNode != null)
             {
-                XPathNavigator summaryNode = memberNode.SelectSingleNode("summary");
-                if (summaryNode != null)
-                {
-                    return ToHtml(summaryNode).Trim();
-                }
-            }
-
-            return null;
-        }
-
-        public virtual string GetRemarks(MethodInfo method)
-        {
-            XPathNavigator memberNode = GetMemberNode(method);
-            if (memberNode != null)
-            {
-                XPathNavigator summaryNode = memberNode.SelectSingleNode("remarks");
-                if (summaryNode != null)
-                {
-                    return ToHtml(summaryNode).Trim();
-                }
-            }
-
-            return null;
-        }
-
-        public virtual string GetReturns(MethodInfo method)
-        {
-            XPathNavigator memberNode = GetMemberNode(method);
-            if (memberNode != null)
-            {
-                XPathNavigator summaryNode = memberNode.SelectSingleNode("returns");
-                if (summaryNode != null)
-                {
-                    return ToHtml(summaryNode).Trim();
-                }
-            }
-
-            return null;
-        }
-        public virtual IDictionary<string, string> GetParameters(MethodInfo method)
-        {
-            XPathNavigator memberNode = GetMemberNode(method);
-            if (memberNode != null)
-            {
-                return (from XPathNavigator node in memberNode.SelectChildren("param", string.Empty)
-                        select node).ToDictionary(
-                            key => key.GetAttribute("name", string.Empty),
-                            val => val.Value);
-                //new KeyValuePair<string, string>(node.GetAttribute("name",string.Empty), node.Value);
-
-            }
-
-            return null;
-        }
-
-
-        public virtual string GetParameterDocs(MethodInfo method, string parameterName)
-        {
-            XPathNavigator memberNode = GetMemberNode(method);
-            if (memberNode != null)
-            {
-                XPathNavigator parameterNode = memberNode.SelectSingleNode(string.Format("param[@name='{0}']", parameterName));
+                var parameterNode = memberNode.SelectSingleNode(string.Format("param[@name='{0}']", parameterName));
                 if (parameterNode != null)
                 {
-                    return ToHtml(parameterNode).Trim();
+                    return parameterNode.Value.Trim();
                 }
             }
 
-            return null;
+            return "No Documentation Found.";
+        }
+
+
+        public virtual string GetDocumentation(HttpActionDescriptor actionDescriptor)
+        {
+            var memberNode = GetMemberNode(actionDescriptor);
+            if (memberNode != null)
+            {
+                var summaryNode = memberNode.SelectSingleNode("summary");
+                if (summaryNode != null)
+                {
+                    return summaryNode.Value.Trim();
+                }
+            }
+
+            return "No Documentation Found.";
         }
 
 
 
-        private XPathNavigator GetMemberNode(MethodInfo method)
+
+        public virtual string GetRemarks(HttpActionDescriptor actionDescriptor)
         {
-            string selectExpression = string.Format(_methodExpression, GetMemberName(method));
-            XPathNavigator node = _documentNavigator.SelectSingleNode(selectExpression);
-            if (node != null)
+            var memberNode = GetMemberNode(actionDescriptor);
+            if (memberNode != null)
             {
-                return node;
+                var summaryNode = memberNode.SelectSingleNode("remarks");
+                if (summaryNode != null)
+                {
+                    return summaryNode.Value.Trim();
+                }
+            }
+
+            return "No Documentation Found.";
+        }
+
+        public virtual string GetResponseClass(HttpActionDescriptor actionDescriptor)
+        {
+            var reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
+            if (reflectedActionDescriptor != null)
+            {
+                if (reflectedActionDescriptor.MethodInfo.ReturnType.IsGenericType)
+                {
+                    var sb = new StringBuilder(reflectedActionDescriptor.MethodInfo.ReturnParameter.ParameterType.Name);
+                    sb.Append("<");
+                    Type[] types = reflectedActionDescriptor.MethodInfo.ReturnParameter.ParameterType.GetGenericArguments();
+                    for (int i = 0; i < types.Length; i++)
+                    {
+                        sb.Append(types[i].Name);
+                        if (i != (types.Length - 1)) sb.Append(", ");
+                    }
+                    sb.Append(">");
+                    return sb.Replace("`1", "").ToString();
+                }
+                else
+                    return reflectedActionDescriptor.MethodInfo.ReturnType.Name;
+            }
+
+            return "void";
+        }
+
+        public virtual string GetNickname(HttpActionDescriptor actionDescriptor)
+        {
+            var reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
+            if (reflectedActionDescriptor != null)
+            {
+                return reflectedActionDescriptor.MethodInfo.Name;
+            }
+
+            return "NicknameNotFound";
+        }
+
+        private XPathNavigator GetMemberNode(HttpActionDescriptor actionDescriptor)
+        {
+            var reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
+            if (reflectedActionDescriptor != null)
+            {
+                string selectExpression = string.Format(METHOD_EXPRESSION, GetMemberName(reflectedActionDescriptor.MethodInfo));
+                var node = _documentNavigator.SelectSingleNode(selectExpression);
+                if (node != null)
+                {
+                    return node;
+                }
             }
 
             return null;
@@ -117,45 +143,43 @@ namespace Swagger.Net.Utilities
             var parameters = method.GetParameters();
             if (parameters.Length != 0)
             {
-                string[] parameterTypeNames = parameters.Select(param => getTypeName(param.ParameterType)).ToArray();
+                string[] parameterTypeNames = parameters.Select(param => ProcessTypeName(param.ParameterType.FullName)).ToArray();
                 name += string.Format("({0})", string.Join(",", parameterTypeNames));
             }
 
             return name;
         }
 
-        private static string getTypeName(Type type)
+        private static string ProcessTypeName(string typeName)
         {
             //handle nullable
-            var result = nullableTypeNameRegex.Match(type.FullName);
+            var result = NullableTypeNameRegex.Match(typeName);
             if (result.Success)
             {
                 return string.Format("{0}{{{1}}}", result.Groups[1].Value, result.Groups[2].Value);
             }
-
-            // handle array types
-            //var innerType = type.FindEnumerableType();
-            //if (innerType != null) return getTypeName(innerType);
-
-            //return type.FriendlyName();
-            return type.Name;
+            return typeName;
         }
 
-        /// <summary>
-        /// Converts XML docs to HTML version
-        /// </summary>
-        /// <param name="element"></param>
-        /// <returns></returns>
-        private string ToHtml(XPathNavigator element)
+
+
+        private XPathNavigator GetTypeNode(string typeName)
         {
-            // some very ghetto conversions here, this can be much better but i'm going for fast PoC here..
-            return Regex.Replace(
-                element.InnerXml.Replace("<code>", "<pre>").Replace("</code>", "</pre>"),
-                "\\r\\n\\s*\\r\\n", "<br/>\r\n<br/>\r\n" // replace two newlines with two <br>'s
-            ); 
+            var selectExpression = string.Format(TYPE_EXPRESSION, typeName);
+            var node = _documentNavigator.SelectSingleNode(selectExpression);
+
+            return node;
+
         }
 
+        private XPathNodeIterator GetTypeMemberNodes(string typeName)
+        {
+            var selectExpression = string.Format(TYPE_MEMBERS_EXPRESSION, typeName);
+            var node = _documentNavigator.Select(selectExpression);
+
+            return node;
+
+        }
 
     }
-       
 }
